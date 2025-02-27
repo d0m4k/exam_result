@@ -112,7 +112,7 @@
         if(explode("@",$email)[1] != "ucsh.edu.mm"){
             die("Email must be ucsh.edu.mm mail");
         }
-        $query_string = "INSERT INTO student(name, email, roll, nrc, fatherName, score, pass) VALUES('$name', '$email', '$roll', '$nrc', '$father_name', '$score', '$pass')";
+        $query_string = "INSERT INTO student(name, email, roll, nrc, fatherName, score, pass) VALUES('$name', '$email', '$roll', '$nrc', '$fatherName', '$score', '$pass')";
         $result = mysqli_query($connection, $query_string);
         if (!$result) {
             die("" . mysqli_error($connection));

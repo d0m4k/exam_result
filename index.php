@@ -27,7 +27,10 @@
         $student = mysqli_fetch_array($query);
     }
     ?>
-    <a href="/logout.php?user=user" class="logout-btn">LOGOUT</a>
+    <div class="logout"><a href="/logout.php?user=user" class="">LOGOUT</a></div>
+    <h1>University Of Computer Studies, Hinthada</h1>
+    <h2>Exam Result Looker</h2>
+    
     <form class="container" action="">
         <h2>Search Exam Results</h2>
         <input type="text" id="rollNo" name="roll" value="<?= isset($_GET["roll"]) ? $_GET["roll"] : ""?>" placeholder="Enter Roll Number" required>
@@ -59,6 +62,10 @@
                 <td class="data"><?= $student["fatherName"] ?></td>
             </tr>
             <tr>
+                <th>Score</th>
+                <td class="data"><?= $student["score"] ?></td>
+            </tr>
+            <tr>
                 <th>Pass or Fail</th>
                 <td class="data status">
                     <?= $student["pass"] ? "<span class='pass'>Pass</span>" : "<span class='fail'>Fail</span>" ?>
@@ -70,7 +77,9 @@
         <h3>Student Not found with Roll No. - <?= $roll ?></h3>
     <?php } ?>
 
-    <script src="script.js"></script>
+    <!-- <footer>
+        <h4>Copyright@2024</h4>
+    </footer> -->
 </body>
 
 </html>

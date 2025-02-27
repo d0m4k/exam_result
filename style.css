@@ -1,7 +1,12 @@
-body {
+*{
+    box-sizing: border-box;
+}
+html, body {
+    height: 100%;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: whitesmoke;
     text-align: center;
+    
 }
 
 .container {
@@ -62,6 +67,7 @@ button:hover {
     width: fit-content;
     margin: auto;
     text-align: left;
+    padding-bottom: 20px;
 }
 
 table td, tr{
@@ -85,12 +91,22 @@ form a{
 }
 
 
-.logout-btn{
-    display: block;
-    float: right;
+.logout{
+    display: flex;
+    justify-content: end;
+}
+
+.logout a{
+    text-decoration: none;
+    background-color: rgba(0, 0, 255, 0.384);
     padding: 10px;
     border-radius: 10px;
     color: white;
-    font-weight: bold;
-    background-color:#0056b3;
+    margin: 10px;
+}
+
+footer{
+    background-color: rgba(128, 128, 128, 0.774);
+    padding: 10px;
+    width: 100%;
 }

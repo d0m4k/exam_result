@@ -137,76 +137,49 @@
         header("Location: /admin/login.php");
         exit;
     }
-    $deleted_message = null;
+
     $connection = mysqli_connect("localhost", "domak", "domak", "examResult");
     if (!$connection) {
         die("" . mysqli_connect_error());
     }
-    if(isset($_GET["delete-id"])){
-        $query = "DELETE FROM student WHERE id = ". $_GET["delete-id"];
-        $result = mysqli_query($connection, $query);
-        if($result){
-            $deleted_message = "SUCCEFULLY DELETED STUDENT</br>NAME: ".$_GET['name']. "</br>ROLL: " .$_GET["roll"];
-        }
-    }
     $query_string = "";
     if (isset($_GET["search"])) {
         $search_term = mysqli_real_escape_string($connection, $_GET["search"]);
-        $query_string = "SELECT * FROM student WHERE CONCAT(name, email, roll, fatherName, nrc) LIKE '%$search_term%'";
+        $query_string = "SELECT * FROM user WHERE CONCAT(username, email, created_at) LIKE '%$search_term%'";
     } else {
-        $query_string = "SELECT * FROM student ORDER BY id DESC";
+        $query_string = "SELECT * FROM user ORDER BY id DESC";
     }
-
     $query = mysqli_query($connection, $query_string);
     $no = 0;
     ?>
     <div class="container">
-        <?php 
-            if($deleted_message){
-                echo "<div class='delete-msg'>".$deleted_message."</div>";
-            }
-        ?>
-        <a href="/admin/showUser.php" class="users">USERS</a>
+        <a href="/admin/index.php" class="home">HOME</a>
          <a href="/logout.php?user=admin" class="logout">LOGOUT</a>
-        <h2>Student Management</h2>
+        <h2>Users</h2>
         <form class="search-box" action="">
-            <input type="text" placeholder="Search by name or roll..." value="<?= isset($_GET["search"]) ? $_GET["search"] : "" ?>" name="search">
+            <input type="text" placeholder="Search by username, email or Created time" value="<?= isset($_GET["search"]) ? $_GET["search"] : "" ?>" name="search">
             <button type="submit">Search</button>
         </form>
-        <a href="/admin/addStudent.php" class="crud-btn add-btn">Add Student</a>
 
         <?php if (mysqli_num_rows($query) == 0) : ?>
-            <div class="not-found">No students found matching your search.</div>
+            <div class="not-found">No User found matching your search.</div>
         <?php else : ?>
             <table>
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Name</th>
-                        <th>Roll</th>
-                        <th>NRC</th>
-                        <th>Father Name</th>
+                        <th>Username</th>
                         <th>Email</th>
-                        <th>Score</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>Account Created Time</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($student = mysqli_fetch_assoc($query)) { ?>
+                    <?php while ($user = mysqli_fetch_assoc($query)) { ?>
                         <tr>
-                            <td><?= $no+=1 ?></td>
-                            <td><?= $student["name"] ?></td>
-                            <td><?= $student["roll"] ?></td>
-                            <td><?= $student["nrc"] ?></td>
-                            <td><?= $student["fatherName"] ?></td>
-                            <td><?= $student["email"] ?></td>
-                            <td><?= $student["score"] ?></td>
-                            <td><?= $student["pass"] ? "<span class='pass'>Pass</span>" : "<span class='fail'>Fail</span>" ?></td>
-                            <td>
-                                <a href="/admin/editStudent.php?id=<?= $student["id"]?>" class="crud-btn edit-btn">Edit</a>
-                                <a href="?delete-id=<?= $student["id"]?>&name=<?= $student["name"]?>&roll=<?= $student["roll"]?>" class="crud-btn delete-btn">Delete</a>
-                            </td>
+                            <td><?= $no += 1 ?></td>
+                            <td><?= $user["username"] ?></td>
+                            <td><?= $user["email"] ?></td>
+                            <td><?= $user["created_at"] ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>

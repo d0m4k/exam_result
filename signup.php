@@ -122,7 +122,7 @@
                     "email"=> $email,
                     "password" => $password,
                 ];
-                setcookie("username", json_encode($username), time() + 3600,"/");
+                setcookie("user", json_encode($user), time() + 3600,"/");
                 header("Location: /?msg=welcome");
                 exit;
             }
