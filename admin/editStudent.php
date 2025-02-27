@@ -84,7 +84,7 @@
 
 <body>
     <?php
-    if(!isset($_COOKIE["username"]) && !isset($_COOKIE["password"])){
+    if(!isset($_COOKIE["admin"])){
         header("Location: /admin/login.php");
         exit;
     }
